@@ -1,0 +1,27 @@
+<h2>Prélèvements</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Sample</th>
+            <th scope="col">Mer</th>
+            <th scope="col">Date</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($prelevements as $prelevement) : ?>
+            <tr>
+                <td><?= $prelevement["Sample"] ?></td>
+                <td><?= $prelevement["Sea"] ?></td>
+                <td><?= $prelevement["Date"] ?></td>
+                <td><a href="admin/triBySample/<?= $prelevement["Sample"] ?>">Tris associés</a></td>
+                <td><a href="admin/viewBySample/<?= $prelevement["Sample"] ?>">Voir</a></td>
+                <td><a href="admin/editBySample/<?= $prelevement["Sample"] ?>">Modifier</a></td>
+                <td><a href="admin/deleteBySample/<?= $prelevement["Sample"] ?>" onclick="return confirm('Confirmer la suppression de ce prélèvement');">Supprimer</a></td>
+            </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>

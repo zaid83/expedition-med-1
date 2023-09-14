@@ -1,0 +1,98 @@
+<form class="m-5 d-flex flex-wrap flex-row align-items-center" method="POST" action="Admin/editBySamplePost/<?= $prelevement["Sample"] ?>">
+
+    <div class="mb-3 w-25 w-25">
+        <label for="Sample" class="form-label">Echantillon</label>
+        <input type="text" class="form-control w-75" id="Sample" aria-describedby="Input Sample" name="sample" value="<?= $prelevement["Sample"] ?>">
+    </div>
+    <div class="mb-3 w-25 w-25">
+        <label for="Sea" class="form-label">Mer</label>
+        <input type="text" class="form-control w-75" id="Sea" name="sea" value="<?= $prelevement["Sea"] ?>">
+    </div>
+    <div class="mb-3 w-25 w-25">
+        <label for="Date" class="form-label">Date</label>
+        <input type="text" class="form-control w-75" id="Date" name="date" value="<?= $prelevement["Date"] ?>">
+    </div>
+    <div class="mb-3 w-25 w-25">
+        <label for="StartTime" class="form-label">Date de début</label>
+        <input type="text" class="form-control w-75" id="StartTime" name="startTime" value="<?= $prelevement["Start_Time"] ?>">
+    </div>
+    <div class="mb-3 w-25 w-25">
+        <label for="StartLatitude" class="form-label">Début latitude</label>
+        <input type="text" class="form-control w-75" id="StartLatitude" name="startLatitude" value="<?= $prelevement["Start_Latitude"] ?>">
+    </div>
+    <div class="mb-3 w-25 w-25">
+        <label for="StartLongitude" class="form-label">Début longitude</label>
+        <input type="text" class="form-control w-75" id="StartLongitude" name="startLongitude" value="<?= $prelevement["Start_Longitude"] ?>">
+    </div>
+    <div class="mb-3 w-25 w-25">
+        <label for="MidLatitude" class="form-label">Milieu Latitude</label>
+        <input type="text" class="form-control w-75" id="MidLatitude" name="midLatitude" value="<?= $prelevement["Mid_Latitude"] ?>">
+    </div>
+    <div class="mb-3 w-25 w-25">
+        <label for="MidLongitude" class="form-label">Millieu Longitude</label>
+        <input type="text" class="form-control w-75" id="MidLongitude" name="midLongitude" value="<?= $prelevement["Mid_Longitude"] ?>">
+    </div>
+    <div class="mb-3 w-25 w-25">
+        <label for="EndLatitude" class="form-label">Fin Latitude</label>
+        <input type="text" class="form-control w-75" id="EndLatitude" name="endLatitude" value="<?= $prelevement["End_Latitude"] ?>">
+    </div>
+    <div class="mb-3 w-25 w-25">
+        <label for="EndLongitude" class="form-label">Fin Longitude</label>
+        <input type="text" class="form-control w-75" id="EndLongitude" name="endLongitude" value="<?= $prelevement["End_Longitude"] ?>">
+    </div>
+    <div class="mb-3 w-25 w-25">
+        <label for="WindForce" class="form-label">Force du Vent</label>
+        <input type="text" class="form-control w-75" id="WindForce" name="windForce" value="<?= $prelevement["Wind_force"] ?>">
+    </div>
+    <div class="mb-3 w-25 w-25">
+        <label for="WindSpeed" class="form-label">Vitesse du Vent</label>
+        <input type="text" class="form-control w-75" id="WindSpeed" name="windSpeed" value="<?= $prelevement["Wind_speed"] ?>">
+    </div>
+    <div class="mb-3 w-25 w-25">
+        <label for="WindDirection" class="form-label">Direction du Vent</label>
+        <input type="text" class="form-control w-75" id="WindDirection" name="windDirection" value="<?= $prelevement["Wind_direction"] ?>">
+    </div>
+    <div class="mb-3 w-25 w-25">
+        <label for="SeaState" class="form-label">Etat de la Mer</label>
+        <input type="text" class="form-control w-75" id="SeaState" name="seaState" value="<?= $prelevement["Sea_state"] ?>">
+    </div>
+    <div class="mb-3 w-25 w-25">
+        <label for="WaterTemperature" class="form-label">Température de l'Eau</label>
+        <input type="text" class="form-control w-75" id="WaterTemperature" name="waterTemperature" value="<?= $prelevement["Water_temperature"] ?>">
+    </div>
+    <div class="mb-3 w-25 w-25">
+        <label for="BoatSpeed" class="form-label">Vitesse du Bateau</label>
+        <input type="text" class="form-control w-75" id="BoatSpeed" name="boatSpeed" value="<?= $prelevement["Boat_speed"] ?>">
+    </div>
+    <div class="mb-3 w-25 w-25">
+        <label for="StartFlowMeter" class="form-label">Début hauteur d'eau</label>
+        <input type="text" class="form-control w-75" id="StartFlowMeter" name="startFlowMeter" value="<?= $prelevement["Start_flowmeter"] ?>">
+    </div>
+    <div class="mb-3 w-25 w-25">
+        <label for="EndFlowMeter" class="form-label">Fin hauteur d'eau</label>
+        <input type="text" class="form-control w-75" id="EndFlowMeter" name="endFlowMeter" value="<?= $prelevement["End_flowmeter"] ?>">
+    </div>
+    <div class="mb-3 w-25 w-25">
+        <label for="FilteredVolume" class="form-label">Volume filtré</label>
+        <input type="text" class="form-control w-75" id="FilteredVolume" name="filteredVolume" value="<?= $prelevement["Filtered_volume"] ?>">
+    </div>
+    <div class="mb-3 w-25 w-25">
+        <label for="FilteredDistance" class="form-label">Distance filtrée</label>
+        <input type="text" class="form-control w-75" id="FilteredDistance" name="filteredDistance" value="<?= $prelevement["Filtered_distance"] ?>">
+    </div>
+    <div class="mb-3 w-25 w-25">
+        <label for="FilteredSurface" class="form-label">Surface filtrée (m)</label>
+        <input type="text" class="form-control w-75" id="FilteredSurface" name="filteredSurface" value="<?= $prelevement["Filtered_surface"] ?>">
+    </div>
+    <div class="mb-3 w-25 w-25">
+        <label for="FilteredSurfaceKm" class="form-label">Surface filtrée (KM)</label>
+        <input type="text" class="form-control w-75" id="FilteredSurfaceKm" name="filteredSurfaceKm" value="<?= $prelevement["Filtered_surface_km"] ?>">
+    </div>
+    <div class="mb-3 w-25 w-25 w-100">
+        <label for="Commentaires" class="form-label">Commentaires</label>
+        <textarea id="Commentaires" class="form-control" id="exampleFormControlTextarea1" rows="3" name="commentaires" value="<?= $prelevement["Commentaires"] ?>"></textarea>
+    </div>
+
+
+    <div class="w-100 text-center p-5"><button type="submit" class="btn btn-primary ">Soumettre</button></div>
+</form>

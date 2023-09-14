@@ -1,0 +1,73 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Température de l'eau</th>
+            <th scope="col">Volume filtré</th>
+            <th scope="col">Etat de la mer</th>
+            <th scope="col">Heure de départ</th>
+            <th scope="col">Force du vent</th>
+            <th scope="col">Commentaires</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><?= $details["Water_temperature"] ?></td>
+            <td><?= $details["Filtered_volume"] ?></td>
+            <td><?= $details["Sea_state"] ?></td>
+            <td><?= $details["Start_time"] ?></td>
+            <td><?= $details["Wind_force"] ?></td>
+            <td><?= $details["Commentaires"] ?></td>
+        </tr>
+    </tbody>
+</table>
+<h2>Tri par Type</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Type</th>
+            <th scope="col">Quantité</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($resultT as $res) : ?>
+            <tr>
+                <td><?= $res["Type"] ?></td>
+                <td><?= $res["total"] ?></td>
+            </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>
+<h2>Tri par Couleur</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Couleur</th>
+            <th scope="col">Quantité</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($resultC as $res) : ?>
+            <tr>
+                <td><?= $res["Color"] ?></td>
+                <td><?= $res["total"] ?></td>
+            </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>
+<h2>Tri par Taille</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Taille</th>
+            <th scope="col">Quantité</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($resultS as $res) : ?>
+            <tr>
+                <td><?= $res["Size"] ?></td>
+                <td><?= $res["total"] ?></td>
+            </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>

@@ -1,0 +1,68 @@
+public function insertDataPrelevement($data) {
+    $Echantillon = $data[0];
+    $Campagne = $data[1];
+    $Mer = $data[2];
+    $Manta = $data[3];
+    $Date = $data[4];
+    $Trafic = $data[5];
+    $CoteLaPlusProche = $data[6];
+    $Courant = $data[7];
+    $Start_Time_UTC = $data[8];
+    $End_Time_UTC = $data[9];
+    $Start_Latitude = $data[10];
+    $Start_Longitude = $data[11];
+    $Mid_Latitude = $data[12];
+    $Mid_Longitude = $data[13];
+    $End_Latitude = $data[14];
+    $End_Longitude = $data[15];
+    $Boat_Speed_kt = $data[16];
+    $Wind_Force_B = $data[17];
+    $Wind_Speed_kt = $data[18];
+    $Wind_Direction_deg = $data[19];
+    $Sea_State_B = $data[20];
+    $Temperature_C = $data[21];
+    $pH = $data[22];
+    $Oxygene_Dissous_mg_L = $data[23];
+    $Salinite_SAL_PSU = $data[24];
+    $Start_Flowmeter = $data[25];
+    $End_Flowmeter = $data[26];
+    $Volume_Filtered_m3 = $data[27];
+    $Volume_Filtered_Corrected_m3 = $data[28];
+    $km2 = $data[29];
+    $Commentaires = $data[30];
+    $Nombre_Particules_gt_1_mm = $data[31];
+    $Concentration_nb_km2 = $data[32];
+    $Concentration_nb_m3 = $data[33];
+
+    $insert = $this->pdo->prepare("INSERT INTO DonneesOcean (Echantillon, Campagne, Mer, Manta, Date, Trafic, cote_la_plus_proche, courant, Start_Time_UTC, End_Time_UTC, Start_Latitude, Start_Longitude, Mid_Latitude, Mid_Longitude, End_Latitude, End_Longitude, Boat_Speed_kt, Wind_Force_B, Wind_Speed_kt, Wind_Direction_deg, Sea_State_B, Temperature_C, pH, Oxygene_Dissous_mg_L, Salinite_SAL_PSU, Start_Flowmeter, End_Flowmeter, Volume_Filtered_m3, Volume_Filtered_Corrected_m3, km2, Commentaires, Nombre_Particules_gt_1_mm, Concentration_nb_km2, Concentration_nb_m3) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $result = $insert->execute([$Echantillon, $Campagne, $Mer, $Manta, $Date, $Trafic, $CoteLaPlusProche, $Courant, $Start_Time_UTC, $End_Time_UTC, $Start_Latitude, $Start_Longitude, $Mid_Latitude, $Mid_Longitude, $End_Latitude, $End_Longitude, $Boat_Speed_kt, $Wind_Force_B, $Wind_Speed_kt, $Wind_Direction_deg, $Sea_State_B, $Temperature_C, $pH, $Oxygene_Dissous_mg_L, $Salinite_SAL_PSU, $Start_Flowmeter, $End_Flowmeter, $Volume_Filtered_m3, $Volume_Filtered_Corrected_m3, $km2, $Commentaires, $Nombre_Particules_gt_1_mm, $Concentration_nb_km2, $Concentration_nb_m3]);
+
+    if (!$result) {
+        echo "<script type=\"text/javascript\">
+                alert(\"Database Error: Unable to Insert Data.\");
+              </script>";
+    }
+}
+
+
+
+
+
+
+
+    public function importSampling() {
+  if (isset($_POST["Import"])) {
+       $csvImporter = new \models\DataRepository();
+       $filename = $_FILES["file"]["tmp_name"];
+       $data = $csvImporter->importCSV($filename); // les données du fichier Excel
+
+       foreach ($data as $row) {
+           
+
+           $csvImporter->insertDataPrelevement($row); // Appel de la méthode insertData
+       }
+
+       $page = "views/AddTri.phtml";
+       require_once "views/Layout.phtml";
+  }
+}

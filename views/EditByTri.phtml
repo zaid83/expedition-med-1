@@ -1,0 +1,25 @@
+<h1>Enregistrement du tri <?= $tri["id"] ?></h1>
+<form class="m-5 d-flex flex-wrap flex-row align-items-center" method="POST" action="Admin/editByTriPost/<?= $tri["id"] ?>">
+
+    <div class="mb-3 w-25 w-25">
+        <label for="Sample" class="form-label">Echantillon</label>
+        <input type="text" class="form-control w-75" id="Sample" aria-describedby="Input Sample" name="sample" value="<?= $tri["Sample"] ?>">
+    </div>
+    <div class="mb-3 w-25 w-25">
+        <label for="Size" class="form-label">Taille</label>
+        <input type="text" class="form-control w-75" id="Size" name="size" value="<?= $tri["Size"] ?>">
+    </div>
+    <div class="mb-3 w-25 w-25">
+        <label for="Type" class="form-label">Type</label>
+        <input type="text" class="form-control w-75" id="Type" name="type" value="<?= $tri["Type"] ?>">
+    </div>
+    <div class="mb-3 w-25 w-25">
+        <label for="Color" class="form-label">Couleur</label>
+        <input type="text" class="form-control w-75" id="Color" name="color" value="<?= $tri["Color"] ?>">
+    </div>
+    <div class="mb-3 w-25 w-25">
+        <label for="Number" class="form-label">Nombre</label>
+        <input type="number" class="form-control w-75" id="Number" name="number" value="<?= $tri["Number"] ?>">
+    </div>
+    <div class="w-100 text-center p-5"><button type="submit" class="btn btn-primary ">Soumettre</button></div>
+</form>

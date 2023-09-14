@@ -1,0 +1,92 @@
+<h1 class="text-center">Prélèvement <?= $result["Sample"] ?></h1>
+
+<ul class="list-group w-50 mx-auto">
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+        Mer
+        <span class="badge bg-primary rounded-pill"><?= $result["Sea"] ?></span>
+    </li>
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+        Date
+        <span class="badge bg-primary rounded-pill"><?= $result["Date"] ?></span>
+    </li>
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+        Heure de Départ
+        <span class="badge bg-primary rounded-pill"><?= $result["Start_Time"] ?></span>
+    </li>
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+        Latitude de Départ
+        <span class="badge bg-primary rounded-pill"><?= $result["Start_Latitude"] ?></span>
+    </li>
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+        Longitude de Départ
+        <span class="badge bg-primary rounded-pill"><?= $result["Start_Longitude"] ?></span>
+    </li>
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+        Latitude moyenne
+        <span class="badge bg-primary rounded-pill"><?= $result["Mid_Latitude"] ?></span>
+    </li>
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+        Longitude moyenne
+        <span class="badge bg-primary rounded-pill"><?= $result["Mid_Longitude"] ?></span>
+    </li>
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+        Latitude de Fin
+        <span class="badge bg-primary rounded-pill"><?= $result["End_Latitude"] ?></span>
+    </li>
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+        Longitude de Fin
+        <span class="badge bg-primary rounded-pill"><?= $result["End_Longitude"] ?></span>
+    </li>
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+        Force du vent
+        <span class="badge bg-primary rounded-pill"><?= $result["Wind_force"] ?></span>
+    </li>
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+        Vitesse du vent
+        <span class="badge bg-primary rounded-pill"><?= $result["Wind_speed"] ?></span>
+    </li>
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+        Direction du vent
+        <span class="badge bg-primary rounded-pill"><?= $result["Wind_direction"] ?></span>
+    </li>
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+        Etat de la mer
+        <span class="badge bg-primary rounded-pill"><?= $result["Sea_state"] ?></span>
+    </li>
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+        Température de l'eau
+        <span class="badge bg-primary rounded-pill"><?= $result["Water_temperature"] ?></span>
+    </li>
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+        Vitesse du bâteau
+        <span class="badge bg-primary rounded-pill"><?= $result["Boat_speed"] ?></span>
+    </li>
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+        Hauteur d'eau au départ
+        <span class="badge bg-primary rounded-pill"><?= $result["Start_flowmeter"] ?></span>
+    </li>
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+        Hauteur d'eau à la fin
+        <span class="badge bg-primary rounded-pill"><?= $result["End_flowmeter"] ?></span>
+    </li>
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+        Volume filtrée
+        <span class="badge bg-primary rounded-pill"><?= $result["Filtered_volume"] ?></span>
+    </li>
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+        Distance filtrée
+        <span class="badge bg-primary rounded-pill"><?= $result["Filtered_distance"] ?></span>
+    </li>
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+        Surface filtrée (m)
+        <span class="badge bg-primary rounded-pill"><?= $result["Filtered_surface"] ?></span>
+    </li>
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+        Surface filtrée (km)
+        <span class="badge bg-primary rounded-pill"><?= $result["Filtered_surface_km"] ?></span>
+    </li>
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+        Commentaires
+        <span class="badge bg-primary rounded-pill"><?= $result["Commentaires"] ?></span>
+    </li>
+</ul>

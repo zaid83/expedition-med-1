@@ -1,0 +1,27 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+<h1>Enregistrement des tris</h1>
+<form class="m-5" action="Data/triPost" method="POST">
+    <div class="mb-3">
+    </div>
+    <i class="bi bi-plus-square-fill ajout_ligne"></i><br>
+    <input type="submit" value="Valider" id="submit" class="btn btn-primary">
+
+</form>
+<script src="public/javascript/select.js"></script>
+
+<form class="form-horizontal" action="Data/import" method="post" name="upload_excel" enctype="multipart/form-data">
+    <fieldset>
+        <legend>Import de fichier</legend>
+            <div class="form-group">         
+                <div class="col-md-4">
+                    <input type="file" name="file" id="file" class="input-large">
+                </div>
+            </div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="singlebutton">Validation</label>
+                        <div class="col-md-4">
+                            <button type="submit" id="submit" name="Import" class="btn btn-primary button-loading" data-loading-text="Loading...">Ajouter</button>
+                        </div>
+                </div>
+    </fieldset>
+</form>
