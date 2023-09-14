@@ -2,7 +2,11 @@
 
 namespace models;
 
+require 'vendor/autoload.php';
+
+use DateTime;
 use PDO;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 
 class DataRepository
 {
@@ -179,24 +183,17 @@ class DataRepository
     {
         $select = $this->pdo->prepare("SELECT * FROM prelevements WHERE SUBSTRING(date, -4) = ?");
         $select->execute(array($year));
-        return $select->fetchAll();
-    }
+        return $select->fetchAll(); }
 
-    public function findUniqueYears()
-    {
+    public function findUniqueYears(){
         $select = $this->pdo->query("SELECT Distinct SUBSTRING(date, -4) FROM prelevements ");
-        return $select->fetchAll(PDO::FETCH_COLUMN);
-    }
+        return $select->fetchAll(PDO::FETCH_COLUMN);}
 
     public function findAllSeas()
     {
-        $select = $this->pdo->prepare("SELECT id_sea, name from mers");
-        $select->execute();
+        $select = $this->pdo->prepare("SELECT id_sea, name from mers");$select->execute();
         return $select->fetchAll();
-    }
-    public function findTypeByTri()
-    {
-        $select = $this->pdo->prepare("SELECT DISTINCT Type from tri");
+    }public function findTypeByTri(){$select = $this->pdo->prepare("SELECT DISTINCT Type from tri");
         $select->execute();
         return $select->fetchAll();
     }
@@ -211,6 +208,187 @@ class DataRepository
     {
         $select = $this->pdo->prepare("SELECT DISTINCT Color from tri");
         $select->execute();
-        return $select->fetchAll();
+        return $select->fetchAll();}
+
+
+        public function importCSV($filename)
+        {
+            try {
+                $spreadsheet = IOFactory::load($filename);
+                $worksheet = $spreadsheet->getActiveSheet();
+    
+                $data = [];
+                $firstRowSkipped = false; // Variable pour suivre si la première ligne a été sautée
+    
+                foreach ($worksheet->getRowIterator() as $row) {
+                    if (!$firstRowSkipped) {
+                        $firstRowSkipped = true;
+                        continue; // Sauter la première ligne
+                    }
+    
+                    $rowData = [];
+                    foreach ($row->getCellIterator() as $cell) {
+                        $rowData[] = $cell->getValue();
+                    }
+                    $data[] = $rowData;
+                }
+    
+                // Renvoie le tableau des données extraites
+                return $data;
+            } catch (\Exception $e) {
+                echo "<script type=\"text/javascript\">
+                        alert(\"Error: {$e->getMessage()}\")
+                      </script>";
+                return []; // Retourne un tableau vide en cas d'erreur
+            }
+        }
+    
+        public function insertData($data)
+        {
+    
+            $sample = $data[1];
+            $size = $data[2];
+            $type = $data[3];
+            $color = $data[4];
+            $number = $data[5];
+    
+            $insert = $this->pdo->prepare('INSERT INTO tri (Sample, Size, Type, Color, Number) VALUES (?, ?, ?, ?, ?)');
+            $result = $insert->execute([$sample, $size, $type, $color, $number]);
+    
+            if (!$result) {
+                echo "<script type=\"text/javascript\">
+                        alert(\"Database Error: Unable to Insert Data.\");
+                      </script>";
+            }
+        }
+    
+        public function insertDataPrelevement($data)
+        {
+            $Echantillon = $data[0];
+            $Campagne = $data[1];
+            $Mer = $data[2];
+            $Manta = $data[3];
+    
+            $dateAuFormatJJMMAAAA = $data[4];
+            $dateTime = \DateTime::createFromFormat('d.m.Y', $dateAuFormatJJMMAAAA);
+            if($dateTime){$Date = $dateTime->format('Y-m-d');}
+    
+    
+    
+            $Trafic = $data[5];
+            $CoteLaPlusProche = $data[6];
+            $Courant = $data[7];
+    
+            $heureTexte = $data[8];
+            $timestamp = strtotime(str_replace('h', ':', $heureTexte));
+            $Start_Time_UTC = date('H:i:s', $timestamp);
+    
+    
+            $heureTexte = $data[9];
+            $timestamp = strtotime(str_replace('h', ':', $heureTexte));
+            $End_Time_UTC = date('H:i:s', $timestamp);
+    
+    
+            $Start_Latitude = $data[10];
+            $Start_Longitude = $data[11];
+            $Mid_Latitude = $data[12];
+            $Mid_Longitude = $data[13];
+            $End_Latitude = $data[14];
+            $End_Longitude = $data[15];
+            $Boat_Speed_kt = $data[16];
+            $Wind_Force_B = $data[17];
+            $Wind_Speed_kt = $data[18];
+            $Wind_Direction_deg = $data[19];
+            $Sea_State_B = $data[20];
+            $Temperature_C = $data[21];
+            $pH = $data[22];
+            $Oxygene_Dissous_mg_L = $data[23];
+            $Salinite_SAL_PSU = $data[24];
+            $Start_Flowmeter = $data[25];
+            $End_Flowmeter = $data[26];
+            $Volume_Filtered_m3 = ($data[26] - $data[25]) * 0.3 * 0.2;
+            $Volume_Filtered_Corrected_m3 = ($data[26] - $data[25]) * 0.3 * 0.1;
+    
+            $heureEnd = $End_Time_UTC;
+            list($heures, $minutes, $secondes) = explode(':', $heureEnd);
+            $End_time = ($heures * 60) + $minutes;
+    
+            $heureStart = $Start_Time_UTC;
+            list($heures, $minutes, $secondes) = explode(':', $heureStart);
+            $Start_time = ($heures * 60) + $minutes;
+    
+            $tt = $End_time - $Start_time;
+            $km2 = $data[16] * 1.852 * ($tt / 60) * (60 * 1e-5);
+    
+            $Commentaires = $data[30];
+            $Nombre_Particules_gt_1_mm = $data[31];
+            var_dump($km2, $heureTexte);
+            if($km2 != 0){
+            $Concentration_nb_km2 = $data[31] / $km2;
+            }
+            $Concentration_nb_m3 = $data[31] / $Volume_Filtered_Corrected_m3;
+    
+    
+    
+    
+    
+    
+    
+    
+    
+            $insert = $this->pdo->prepare("INSERT INTO donneesocean (Echantillon, Campagne, Mer, Manta, Date, Trafic, cote_la_plus_proche, courant, Start_Time_UTC, End_Time_UTC, Start_Latitude, Start_Longitude, Mid_Latitude, Mid_Longitude, End_Latitude, End_Longitude, Boat_Speed_kt, Wind_Force_B, Wind_Speed_kt, Wind_Direction_deg, Sea_State_B, Temperature_C, pH, Oxygene_Dissous_mg_L, Salinite_SAL_PSU, Start_Flowmeter, End_Flowmeter, Volume_Filtered_m3, Volume_Filtered_Corrected_m3, km2, Commentaires, Nombre_Particules_gt_1_mm, Concentration_nb_km2, Concentration_nb_m3) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            $result = $insert->execute([$Echantillon, $Campagne, $Mer, $Manta, $Date, $Trafic, $CoteLaPlusProche, $Courant, $Start_Time_UTC, $End_Time_UTC, $Start_Latitude, $Start_Longitude, $Mid_Latitude, $Mid_Longitude, $End_Latitude, $End_Longitude, $Boat_Speed_kt, $Wind_Force_B, $Wind_Speed_kt, $Wind_Direction_deg, $Sea_State_B, $Temperature_C, $pH, $Oxygene_Dissous_mg_L, $Salinite_SAL_PSU, $Start_Flowmeter, $End_Flowmeter, $Volume_Filtered_m3, $Volume_Filtered_Corrected_m3, $km2, $Commentaires, $Nombre_Particules_gt_1_mm, $Concentration_nb_km2, $Concentration_nb_m3]);
+    
+            if (!$result) {
+                echo "<script type=\"text/javascript\">
+                        alert(\"Database Error: Unable to Insert Data.\");
+                      </script>";
+            }
+        }
+    
+        public function importCSVSampling($filename)
+    {
+        try {
+            $spreadsheet = IOFactory::load($filename);
+            $worksheet = $spreadsheet->getActiveSheet();
+    
+            $data = [];
+            $firstRowSkipped = false; // Variable pour suivre si la première ligne a été sautée
+    
+            foreach ($worksheet->getRowIterator() as $row) {
+                if (!$firstRowSkipped) {
+                    $firstRowSkipped = true;
+                    continue; // Sauter la première ligne
+                }
+    
+                // Stockez la ligne actuelle dans une variable temporaire
+                $rowData = [];
+                foreach ($row->getCellIterator() as $cell) {
+                    $rowData[] = $cell->getValue();
+                }
+    
+                // Vérifiez si la ligne actuelle n'est pas vide (c'est-à-dire, contient des données)
+                $hasData = false;
+                foreach ($rowData as $cellData) {
+                    if (!empty($cellData)) {
+                        $hasData = true;
+                        break;
+                    }
+                }
+    
+                // Si la ligne actuelle contient des données, ajoutez-la au tableau $data
+                if ($hasData) {
+                    $data[] = $rowData;
+                }
+            }
+    
+            // Renvoie le tableau des données extraites
+            return $data;
+        } catch (\Exception $e) {
+            echo "<script type=\"text/javascript\">
+                    alert(\"Error: {$e->getMessage()}\")
+                  </script>";
+            return []; // Retourne un tableau vide en cas d'erreur
+        }
     }
 }
