@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Hôte : localhost:8889
--- Généré le : jeu. 06 juil. 2023 à 06:48
--- Version du serveur : 5.7.39
--- Version de PHP : 8.2.0
+-- Hôte : 127.0.0.1:3306
+-- Généré le : jeu. 14 sep. 2023 à 12:50
+-- Version du serveur : 8.0.31
+-- Version de PHP : 8.0.26
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,97 +18,132 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données : `med`
+-- Base de données : `zbi`
 --
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `prelevements`
+-- Structure de la table `donneesocean`
 --
 
-CREATE TABLE `prelevements` (
-  `Sample` varchar(9) NOT NULL,
-  `Sea` varchar(19) DEFAULT NULL,
-  `Date` varchar(10) DEFAULT NULL,
-  `Start_Time` varchar(10) DEFAULT NULL,
+DROP TABLE IF EXISTS `donneesocean`;
+CREATE TABLE IF NOT EXISTS `donneesocean` (
+  `Echantillon` varchar(20) DEFAULT NULL,
+  `Campagne` int DEFAULT NULL,
+  `Mer` varchar(50) DEFAULT NULL,
+  `Manta` varchar(20) DEFAULT NULL,
+  `Date` date DEFAULT NULL,
+  `Trafic` decimal(5,2) DEFAULT NULL,
+  `cote_la_plus_proche` decimal(6,2) DEFAULT NULL,
+  `courant` decimal(4,2) DEFAULT NULL,
+  `Start_Time_UTC` time DEFAULT NULL,
+  `End_Time_UTC` time DEFAULT NULL,
   `Start_Latitude` varchar(12) DEFAULT NULL,
   `Start_Longitude` varchar(12) DEFAULT NULL,
   `Mid_Latitude` varchar(12) DEFAULT NULL,
   `Mid_Longitude` varchar(12) DEFAULT NULL,
-  `End_Latitude` varchar(11) DEFAULT NULL,
+  `End_Latitude` varchar(12) DEFAULT NULL,
   `End_Longitude` varchar(12) DEFAULT NULL,
-  `Wind_force` varchar(10) DEFAULT NULL,
-  `Wind_speed` varchar(10) DEFAULT NULL,
-  `Wind_direction` varchar(10) DEFAULT NULL,
-  `Sea_state` varchar(4) DEFAULT NULL,
-  `Water_temperature` decimal(3,1) DEFAULT NULL,
-  `Boat_speed` decimal(2,1) DEFAULT NULL,
-  `Start_flowmeter` int(11) DEFAULT NULL,
-  `End_flowmeter` int(11) DEFAULT NULL,
-  `Filtered_volume` int(11) DEFAULT NULL,
-  `Filtered_distance` int(11) DEFAULT NULL,
-  `Filtered_surface` int(11) DEFAULT NULL,
-  `Filtered_surface_km` decimal(4,3) DEFAULT NULL,
-  `Commentaires` varchar(139) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `Boat_Speed_kt` decimal(3,1) DEFAULT NULL,
+  `Wind_Force_B` int DEFAULT NULL,
+  `Wind_Speed_kt` int DEFAULT NULL,
+  `Wind_Direction_deg` int DEFAULT NULL,
+  `Sea_State_B` int DEFAULT NULL,
+  `Temperature_C` decimal(6,3) DEFAULT NULL,
+  `pH` decimal(5,2) DEFAULT NULL,
+  `Oxygene_Dissous_mg_L` decimal(5,2) DEFAULT NULL,
+  `Salinite_SAL_PSU` decimal(5,2) DEFAULT NULL,
+  `Start_Flowmeter` int DEFAULT NULL,
+  `End_Flowmeter` int DEFAULT NULL,
+  `Volume_Filtered_m3` decimal(7,2) DEFAULT NULL,
+  `Volume_Filtered_Corrected_m3` decimal(7,2) DEFAULT NULL,
+  `km2` decimal(9,9) DEFAULT NULL,
+  `Commentaires` text,
+  `Nombre_Particules_gt_1_mm` int DEFAULT NULL,
+  `Concentration_nb_km2` varchar(80) DEFAULT NULL,
+  `Concentration_nb_m3` decimal(5,2) DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Déchargement des données de la table `prelevements`
+-- Déchargement des données de la table `donneesocean`
 --
 
-INSERT INTO `prelevements` (`Sample`, `Sea`, `Date`, `Start_Time`, `Start_Latitude`, `Start_Longitude`, `Mid_Latitude`, `Mid_Longitude`, `End_Latitude`, `End_Longitude`, `Wind_force`, `Wind_speed`, `Wind_direction`, `Sea_state`, `Water_temperature`, `Boat_speed`, `Start_flowmeter`, `End_flowmeter`, `Filtered_volume`, `Filtered_distance`, `Filtered_surface`, `Filtered_surface_km`, `Commentaires`) VALUES
-('EM22-01 ', 'Tyrrhenian sea', '11/07/2022', '17h22', '42°07.843 N', '11°37.247 E', '42°08.214 N', '11°36.646 E', '42°08.570 N', '11°36.054 E', '3', '12', '255', '3', 24.3, 2.2, 53827, 61885, 290, 2037, 1222, 0.001, ''),
-('EM22-02 ', 'Tyrrhenian sea', '12/07/2022', '10h29', '42°21,375 N', '11°09,419 E', '42°21,675 N', '11°08,459 E', '42°22,011 N', '11°07,582 E', '1', '4', '110', '1H', 24.6, 2.9, 62345, 71801, 340, 2685, 1611, 0.002, 'Canal entre Ile Giglio et Santa Liberata, pas mal de traffic, côtier < 1 mile'),
-('EM22-03 ', 'Tyrrhenian sea', '12/07/2022', '16h57', '42°36,285 N', '10°51,829 E', '42°36,834 N', '10°50,918 E', '42°37,147 N', '10°50,335 E', '3', '8', '200', '3', 25.7, 2.7, 72611, 81778, 330, 2500, 1500, 0.002, ''),
-('EM22-04 ', 'Tyrrhenian sea', '13/07/2022', '11h45', '42°46,665 N', '10°26,283 E', '42°47,287 N', '10°26,856 E', '42°48,070 N', '10°27,219 E', '2', '4', '120', '2', 26.0, 2.9, 91897, 101445, 344, 2685, 1611, 0.002, ' SE Ile d\'Elbe < 1miles côte + traffic maritime '),
-('EM22-05 ', 'Ligurian sea', '13/07/2022', '17h50', '42°48,271 N', '10°21,135 E', '42°48,292 N', '10°20,385 E', '42°48,402 N', '10°19,641 E', '1', '4', '', '2', 27.8, 2.1, 1547, 7513, 215, 1945, 1167, 0.001, 'Traffic maritime, zone portuaire'),
-('EM22-06', 'Ligurian sea', '13/07/2022', '23h23', '42°50,916 N', '10°13,384 E', '42°050,426 N', '10°13,580 E', '42°49,903 N', '10°13,823 E', '', '', '', '2', 26.7, 2.2, 8008, 15165, 258, 2037, 1222, 0.001, 'Proximité porto ferraio, transport maritime important'),
-('EM22-07 ', 'Tyrrhenian sea', '14/07/2022', '16h00', '42°46,246 N ', '10°03,417 E', '42°46,125 N', '10°02,660 E', '42°46,012 N', '10°01,915 E', '2', '5', '230', '2', 29.3, 2.3, 15579, 21722, 221, 2130, 1278, 0.001, ''),
-('EM22-08', 'Ligurian sea', '16/07/2022', '18h15', '42°53,890 N', '09°28,945 E', '42°54,499 N', '09°28,856 E', '42°55,097 N', '09°28,732 E', '2', '5', '150', '2', 27.5, 2.4, 23118, 30060, 250, 2222, 1333, 0.001, 'Longer côtes cap corse'),
-('EM22-09', 'Ligurian sea', '17/07/2022', '11h09', '42°59,552 N', '09°28,147 E', '42°59,067 N', '09°28,870 E', '42°58,729 N', '09°29,490 E', '3', '10', '100', '3', 26.7, 2.5, 30749, 39601, 319, 2315, 1389, 0.001, 'Prélèvement face au vent, à contre courant (0,8 nœuds de courant), en remontant vers Macinaggio'),
-('EM22-10', 'Ligurian sea', '17/07/2022', '16h40', '42°59,236 N', '09°20,050 E', '42°59,654 N', '09°19,766 E', '42°58,105 N', '09°19,506 E', '2', '10', '100', '2', 28.2, 2.7, 40445, 49235, 316, 2500, 1500, 0.002, 'Proche village Centuri, côte sauvage et escarpée, quelques bateaux de plaisance, distance côte = 1 mile'),
-('EM22-11', 'Ligurian sea', '18/07/2022', '12h37', '42°48,632 N', '09°18,600 E', '42°47,986 N', '09°18,789 E', '42°47,302 N', '09°18,934 E', '1', '2', '315', '1', 28.9, 2.7, 49533, 57686, 294, 2500, 1500, 0.002, 'Côte sauvage et escarpée, quelques habitations éparses, calme plat, entrée Est du golfe de saint Florent'),
-('EM22-12', 'Ligurian sea', '18/07/2022', '17h25', '42°43,228 N', '09°15,627 E', '42°42,702 N', '09°16,028 E', '42°42,137 N', '09°16,484 E', '2', '5', '150', '2', 28.7, 2.8, 59461, 68806, 336, 2593, 1556, 0.002, 'Entrée ouest du golf de saint Florent, traffic maritime important, zone urbanisée, vent et courant de face '),
-('EM22-13', 'Ligurian sea', '19/07/2022', '11h32', '42°41,839 N', '09°03,257 E', '42°41,507 N', '09°02,418 E', '42°41,179 N', '09°01,591 E', '2', '5', '320', '2', 27.9, 2.7, 73573, 83037, 341, 2500, 1500, 0.002, 'Anse de Peraiola, direction île Rousse, pas de traffic, 1 mille nautique de la côte '),
-('EM22-15', 'Ligurian sea', '20/07/2022', '13h15', '43°26,770 N', '07°40,909 E', '43°26,958 N', '07°39,883 E', '43°27,133 N', '07°38,816 E', '1', '2', '70', '1', 28.6, 3.0, 92890, 102688, 353, 2778, 1667, 0.002, 'Mer calme, très peu de vent, pas de terre en vue, côte la plus proche à 17 miles nautiques'),
-('EM22-16', 'Ligurian sea', '20/07/2022', '19h34', '43°30,538 N', '07°06,973 E', '43°30,665 N', '07°05,819 E', '43°30,694 N', '07°05,178 E', '1', '8', '240', '1', 28.1, 2.7, 4172, 13372, 331, 2500, 1500, 0.002, 'Distance 1 mile des îles de Lerens, 2 miles du continent, ebaucoup de bateaux de plaisance, Devant le golfe Juan, très urbanisé'),
-('EM22-17', 'Ligurian sea', '21/07/2022', '11h52', '43°31,706 N', '07°02,064 E', '43°31,929 N', '07°03,043 E', '43°32,055 N', '07°03,934 E', '2', '8', '30', '2', 28.4, 2.6, 18105, 27948, 354, 2408, 1445, 0.001, 'Trafic intense de bateaux, baie de Cannes, beaucoup de houle bateaux'),
-('EM22-18', 'Ligurian sea', '24/07/2022', '10h29', '43°31,844 N', '07°005,456 E', '43°31,819 N', '07°004,291 E', '43°31,897 N', '07°003,224 E', '2', '8', '101', '2', 28.2, 3.1, 30369, 40286, 357, 2871, 1722, 0.002, 'beaucoup de trafic maritime près des côtes (Cannes), Mer agitée depuis 2 jours, surface brassée, vitesse de 4,1 pendant 2 premières minutes'),
-('EM22-19', 'Ligurian sea', '24/07/2022', '15h43', '43°30,507 N', '07°04,446 E', '43°30,985 N', '07°05,127 E', '43°31,448 N', '07°05,814 E', '1', '5', '80', '2', 28.5, 2.6, 44067, 53334, 334, 2408, 1445, 0.001, 'Ile de Lerens, cap d\'antibe, quelques bateaux, proche de la côte'),
-('EM22-20', 'Ligurian sea', '25/07/2022', '10h34', '43°30,711 N', '07°55,513 E', '43°30,428 N', '07°56,414 E', '43°30,129 N', '07°57,357 E', '2', '8', '240', '2', 28.3, 2.4, 56093, 65466, 337, 2222, 1333, 0.001, '15aine de mile des côtes françaises, très peu de traffic'),
-('EM22-21', 'Ligurian sea', '25/07/2022', '16h03', '43°16,136 N', '08°34,973 E', '43°15,775 N', '08°35,795 E', '43°15,401 N', '08°36,661 E', '3', '8', '240', '3', 28.1, 2.8, 66139, 74254, 292, 2593, 1556, 0.002, 'Peu de trafic ( 1 ferry 2 voilier), Traversée entre Nice et Nord de la Corse'),
-('EM22-22', 'Ligurian sea', '26/07/2022', '10h42', '42°58,026 N', '09°27,948 E', '42°57,455 N', '09°28,', '42°56,908 N', '09°28,162 E', '3', '14', '160', '3', 28.1, 2.4, 75233, 84013, 316, 2222, 1333, 0.001, 'Trafic léger, proche vilage Macinaggio, un peu de vent, vent la veille et port < 1 mile'),
-('EM22-23', 'Ligurian sea', '26/07/2022', '17h29', '42°43,221 N', '09°30,476 E', '42°42,567 N', '09°30,030 E', '42°49,903 N', '09°30,793 E', '1', '5', '150', '1', 29.0, 2.9, 84939, 94377, 340, 2685, 1611, 0.002, 'Face à Bastia, très peu de trafic'),
-('EM22-24', 'Tyrrhenian sea', '27/07/2022', '10h50', '41°46,642 N', '09°26,249 E', '41°46,031 N', '09°25°846 E', '41°45,438 N', '09°25,440 E', '3', '8', '180', '3', 29.0, 2.6, 95343, 103762, 303, 2408, 1445, 0.001, 'Près de la côte est Corse, l\'anse de farena, trafic près des côtes (voilier)'),
-('EM22-25', 'Tyrrhenian sea', '28/07/2022', '09h48', '41°37,131 N', '09°22,742 E', '41°37,007 N', '09°22,646 E', '41°36,393 N', '09°22,505 E', '1', '5', '230', '2', 27.4, 2.5, 4904, 8519, 130, 2315, 1389, 0.001, 'près de la côte, trafic intense, débitmètre bloqué par les algues'),
-('EM22-26', 'Strait of Bonifacio', '31/08/2022', '12h04', '41°18,569 N', '09°04,626 E', '41°17,887 N', '09°03,398 E', '41°17,228 N', '09°03,128 E', '2', '7', '270', '2H', 26.5, 2.4, 9403, 17916, 306, 2222, 1333, 0.001, 'Absence de bateaux, très houleux, bouche du manta plus ou moins immergée'),
-('EM22-27', 'Sardinian sea', '01/08/2022', '10h26', '40°54,424 N', '08°09,361 E', '40°53,713 N', '08°09,156 E', '40°52,959 N', '08°08,950 E', '1', '4.5', '30', '1H', 26.3, 3.0, 19097, 28620, 343, 2778, 1667, 0.002, ''),
-('EM22-28', 'Sardinian sea', '01/08/2022', '15h08', '40°31,947 N', '08°18,193 E', '40°31,129 N', '08°18,400 E', '40°30,293 N', '08°18,587 E', '2', '10', '300', '2', 25.2, 3.3, 30908, 41791, 392, 3056, 1833, 0.002, ''),
-('EM22-29', 'Sardinian sea', '02/08/2022', '11h37', '40°17,161 N', '08°28,303 E', '40°17,079 N', '08°28,224 E', '40°16,471 N', '08°28,026 E', '1', '4', '240', '1H', 24.9, 2.7, 42137, 51079, 322, 2500, 1500, 0.002, ''),
-('EM22-30', 'Sardinian sea', '02/08/2022', '12h33', '40°15,234 N', '08°27,686 E', '40°14,588 N', '08°27,528 E', '40°13,962 N', '08°27,373 E', '1', '2', '240', '1H', 26.6, 2.5, 27164, 35708, 308, 2315, 1389, 0.001, ''),
-('EM22-31', 'Sardinian sea', '02/08/2022', '17h54', '39°44,414 N', '08°21,954 E', '39°43,692 N', '08°22,020 E', '39°42,983 N', '08°22,064 E', '2', '6', '320', '2', 27.0, 2.9, 51990, 60226, 296, 2685, 1611, 0.002, ''),
-('EM22-32', 'Sardinian sea', '03/08/2022', '10h09', '39°24,807 N', '08°23,469 E', '39°24,186 N', '08°23,131 E', '39°23,516 N', '08°22,771 E', '0', '0', '0', '0', 26.2, 2.8, 61292, 70470, 330, 2593, 1556, 0.002, ''),
-('EM22-33', 'Sardinian sea', '03/08/2022', '17h52', '38°57,602 N', '08°26,600 E', '38°58,079 N', '08°27,117 E', '38°58,373 N', '08°27,824 E', '2', '5', '250', '1', 27.2, 3.0, 71569, 80336, 316, 2778, 1667, 0.002, ''),
-('EM22-34', 'Sardinian sea', '03/08/2022', '18h33', '38°58,631 N', '08°28,410 E', '38°58,933 N', '08°29,029 E', '38°59,275 N', '08°29,597 E', '2', '5', '250', '1', 27.5, 2.7, 36179, 43882, 277, 2500, 1500, 0.002, ''),
-('EM22-35', 'Sardinian sea', '04/08/2022', '15h44', '38°52,059 N', '08°50,947 E', '38°52,365 N', '08°51,739 E', '38°52,620 N', '08°52,639 E', '1', '6', '110', '1H', 28.2, 2.9, 82224, 90166, 286, 2685, 1611, 0.002, ''),
-('EM22-36', 'Tyrrhenian sea', '06/08/2022', '14h45', '39°12,135 N', '09°07,318 E', '39°11,925 N', '09°06,408 E', '39°11,830 N', '09°06,155 E', '3', '15', '200', '2', 28.6, 2.5, 92190, 98689, 234, 2315, 1389, 0.001, ''),
-('EM22-37', 'Strait of Bonifacio', '07/08/2022', '11h50', '39°06,020 N', '09°32,003 E', '39°06,512 N', '09°32,396 E', '39°07,091 N', '09°32,819 E', '2', '8', '60', '2', 28.9, 2.2, 49, 9032, 323, 2037, 1222, 0.001, ''),
-('EM22-39', 'Tyrrhenian sea', '07/08/2022', '15h46', '39°27,291 N', '09°39,216 E', '39°27,937 N', '09°39,241 E', '39°28,631 N', '09°39,255 E', '1', '5', '90', '2', 28.9, 2.7, 9752, 17092, 264, 2500, 1500, 0.002, ''),
-('EM22-40', 'Tyrrhenian sea', '08/08/2022', '10h32', '39°38,233 N', '09°39,935 E', '39°38,898 N', '09°39,678 E', '39°39,575 N', '09°39,451 E', '2', '5', '0', '2', 28.8, 2.9, 18540, 28138, 346, 2685, 1611, 0.002, ''),
-('EM22-42', 'Tyrrhenian sea', '08/08/2022', '17h13', '40°12,620 N', '09°39,879 E', '40°13,201 N', '09°39,442 E', '40°13,773 N', '09°39,056 E', '2', '5', '0', '2', 29.4, 3.3, 28943, 36790, 282, 3056, 1833, 0.002, ''),
-('EM22-43', 'Tyrrhenian sea', '09/08/2022', '10h08', '40°15,384 N', '09°38,512 E', '40°16,111 N', '09°39,290 E', '40°16,384 N', '09°39,575 E', '2', '7', '30', '2', 28.8, 2.7, 37700, 46423, 314, 2500, 1500, 0.002, ''),
-('EM22-45', 'Strait of Bonifacio', '10/08/2022', '16h15', '41°27,536 N', '09°16,600 E', '41°26,892 N', '09°16,212 E', '41°26,237 N', '09°15,877 E', '2', '10', '90', '2', 28.5, 2.7, 48760, 57774, 325, 2500, 1500, 0.002, ''),
-('EM22-46', 'Strait of Bonifacio', '10/08/2022', '18h07', '41°20,944 N', '09°14,655 E', '41°21,457 N', '09°13,886 E', '41°21,912 N', '09°13,142 E', '1', '5', '50', '1', 28.2, 2.9, 58438, 67565, 329, 2685, 1611, 0.002, ''),
-('EM22-47', 'Strait of Bonifacio', '11/08/2022', '17h52', '41°28,689\'N', '09°17,485 E', '41°29,298 N', '09°17,999 E', '41°29,951 N', '09°18,467 E', '1', '3', '/', '1H', 28.0, 3.0, 77664, 86299, 311, 2778, 1667, 0.002, ''),
-('EM22-48', 'Tyrrhenian sea', '13/08/2022', '16h50', '41°36,693 N', '09°19,908 E', '41°36,659 N', '09°20,746 E', '41°36,640 N', '09°21,495 E', '2', '4', '80', '1/2', 28.0, 2.5, 96135, 103793, 276, 2315, 1389, 0.001, ''),
-('EM22-49', 'Strait of Bonifacio', '14/08/2022', '18h34', '41°31,876 N', '09°30,856 E', '41°31,425 N', '09°31,526 E', '41°31,006 N', '09°32,162 E', '4', '10', '180', '3', 26.9, 2.6, 14627, 23087, 305, 2408, 1445, 0.001, ''),
-('EM22-50', 'Strait of Bonifacio', '15/08/2022', '10h30', '41°28,859 N ', '09°17,547 E', '41°28,149 N ', '09°17,352 E', '41°27,433 N', '09°17,170 E', '3', '12', '70', '3', 27.9, 2.9, 24261, 32989, 314, 2685, 1611, 0.002, ''),
-('EM22-51', 'Tyrrhenian sea', '15/08/2022', '18h09', '41°39,194 N', '09°23,687 E', '41°39,821 N', '09°23,929 E', '41°40,529 N', '09°24,211 E', '3', '10', '110', '3', 28.1, 2.7, 34490, 42155, 276, 2500, 1500, 0.002, ''),
-('EM22-53', 'Tyrrhenian sea', '16/08/2022', '16h05', '41°36,477 N', '09°51,548 E', '41°36,477 N', '09°52,344 E', '41°36,487 N', '09°53,210 E', '2', '4', '70', '2', 28.6, 2.8, 43909, 52229, 300, 2593, 1556, 0.002, ''),
-('EM22-55', 'Tyrrhenian sea', '17/08/2022', '09h01', '41°47,670 N', '11°59,817 E', '41°47,420 N', '11°59,615 E', '41°47,190 N', '12°00,460 E', '3', '13', '90', '3', 26.8, 2.8, 53285, 61257, 287, 2593, 1556, 0.002, ''),
-('EM22-56', 'Tyrrhenian sea', '17/08/2022', '16h31', '41°46,624 N', '12°12,523 E', '41°46,045 N', '12°12,738 E', '41°45,417 N', '12°12,936 E', '4', '15', '170', '3', 27.4, 2.5, 62191, 71637, 340, 2315, 1389, 0.001, ''),
-('EM22-57', 'Tyrrhenian sea', '18/08/2022', '12h32', '41°44,511 N', '12°14,286 E', '41°44,643 N', '12°14,802 E', '41°44,748 N', '12°15,311 E', '4', '20', '110', '1', 25.1, 1.5, 71959, 79394, 268, 1389, 833, 0.001, '');
+INSERT INTO `donneesocean` (`Echantillon`, `Campagne`, `Mer`, `Manta`, `Date`, `Trafic`, `cote_la_plus_proche`, `courant`, `Start_Time_UTC`, `End_Time_UTC`, `Start_Latitude`, `Start_Longitude`, `Mid_Latitude`, `Mid_Longitude`, `End_Latitude`, `End_Longitude`, `Boat_Speed_kt`, `Wind_Force_B`, `Wind_Speed_kt`, `Wind_Direction_deg`, `Sea_State_B`, `Temperature_C`, `pH`, `Oxygene_Dissous_mg_L`, `Salinite_SAL_PSU`, `Start_Flowmeter`, `End_Flowmeter`, `Volume_Filtered_m3`, `Volume_Filtered_Corrected_m3`, `km2`, `Commentaires`, `Nombre_Particules_gt_1_mm`, `Concentration_nb_km2`, `Concentration_nb_m3`) VALUES
+('EM23-01', 1, 'Tyrrhenienne', 'EM23-01', '2023-07-08', '2.00', '4.57', '0.07', '19:48:00', '20:08:00', '41°37.028\'N', '012°21.868\'E', '41°36.618\'N', '012°22.231\'E', '41°36.222\'N', '012°22.617\'E', '2.9', 1, 5, 150, 1, '28.055', '7.89', '2.06', '41.62', 79845, 86154, '378.54', '189.27', '0.001074160', 'à côte d\'une réserve naturelle avec amphore romaine. Dernière minute manta hors de l\'eau un peu ', 133, '123817.68079243', '0.70'),
+('EM23-02', 1, 'Tyrrhenienne', 'EM23-02', '2023-07-09', '3.00', '1.56', '0.06', '17:30:00', '17:50:00', '40°55.531\'N', '12°53.248\'E', '40°55.187\'N', '012°53.706\'E', '40°54.820\'N', '012°54.174\'E', '2.9', 1, 3, 330, 1, '29.400', '8.07', '6.31', '42.20', 87631, 93527, '353.76', '176.88', '0.001074160', 'prélèvement entre deux îles (ponza et palmarola)', 154, '143367.84091755', '0.87'),
+('EM23-03', 1, 'Tyrrhenienne', 'EM23-03', '2023-07-10', '4.00', '0.25', '0.07', '11:20:00', '11:40:00', '40°53.630\'N', '12°58.510\'E', '40°53.225\'N', '12°58.248\'E', '40°52.847\'N', '12°57.963\'E', '2.6', 0, 0, 0, 0, '28.660', '8.26', '4.89', '42.00', 94234, 100469, '374.10', '187.05', '0.000963040', 'proximité village. Bout sous aile manta. Proche des côtes. Trafic ++.', 147, '152641.63482306', '0.79'),
+('EM23-04', 1, 'Tyrrhenienne', 'EM23-04', '2023-07-10', '2.00', '12.60', '0.04', '20:43:00', '21:03:00', '41°13.141\'N', '12°37.088\'E', '41°13.591\'N', '12°37.088\'E', '41°13.986\'N', '12°36.743\'E', '2.8', 2, 5, 310, 2, '27.870', '8.34', '5.58', '38.78', 100871, 106935, '363.84', '181.92', '0.001037120', 'loin des côtes, au large entre ponza et rome', 64, '61709.348966368', '0.35'),
+('EM23-05', 1, 'Tyrrhenienne', 'EM23-05', '2023-07-11', '3.00', '4.29', '0.05', '18:01:00', '18:21:00', '41°43.078\'N', '12°09.245\'E', '41°42.855\'N', '12°08.689\'E', '41°42.642\'N', '12°08.119\'E', '2.8', 0, 0, 0, 0, '31.200', '8.21', '3.27', '0.00', 7486, 13328, '350.52', '175.26', '0.001037120', 'estuaire rome', 17, '16391.545819192', '0.10'),
+('EM23-06', 1, 'Bouches de Bonifacio', 'EM23-06', '2023-07-12', '3.00', '2.54', '0.02', '18:08:00', '18:28:00', '41°14.581\'N', '009°05.573\'E', '41°14.368\'N', '009°04.991\'E', '41°14.150\'N', '009°04.390\'E', '2.9', 2, 0, 0, 2, '26.700', '8.34', '2.34', '42.23', 13853, 19428, '334.50', '167.25', '0.001074160', 'vent très fort', 2, '1861.9200119163', '0.01'),
+('EM23-07', 1, 'Sardinian sea', 'EM23-07', '2023-07-13', '2.00', '0.77', NULL, '12:48:00', '13:48:00', '40°57.530\'N', '008°14.332\'E', '40°57.886\'N', '008°14.636\'E', '40°58.272\'N', '008°14.959\'E', '2.6', 2, 7, 70, 0, '26.628', '8.41', '2.62', '38.15', 19529, 25692, '369.78', '184.89', '0.002889120', 'Dans une baie, manta relevé environ 5sec après les 20min règlementaires', 97, '33574.237137952', '0.52'),
+('EM23-08', 1, 'Sardinian sea', 'EM23-08', '2023-07-13', NULL, '0.46', NULL, '20:11:00', '20:31:00', '40°33.766\'N', '008°10.191\'E', '40°34.121\'N', '008°10.502\'E', '40°34.466\'N', '008°10.823\'E', '2.8', 3, 13, 330, 1, '26.380', '8.40', '2.46', '41.87', 26028, 32323, '377.70', '188.85', '0.001037120', NULL, 4, '3856.834310398', '0.02');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `prelevement`
+--
+
+DROP TABLE IF EXISTS `prelevement`;
+CREATE TABLE IF NOT EXISTS `prelevement` (
+  `Echantillon` varchar(20) DEFAULT NULL,
+  `Campagne` varchar(10) DEFAULT NULL,
+  `Mer` varchar(50) DEFAULT NULL,
+  `Manta` varchar(20) DEFAULT NULL,
+  `Date` varchar(60) DEFAULT NULL,
+  `Trafic` decimal(5,2) DEFAULT NULL,
+  `cote_la_plus_proche` decimal(6,2) DEFAULT NULL,
+  `courant` decimal(4,2) DEFAULT NULL,
+  `Start_Time_UTC` varchar(8) DEFAULT NULL,
+  `End_Time_UTC` varchar(8) DEFAULT NULL,
+  `Start_Latitude` varchar(12) DEFAULT NULL,
+  `Start_Longitude` varchar(12) DEFAULT NULL,
+  `Mid_Latitude` varchar(12) DEFAULT NULL,
+  `Mid_Longitude` varchar(12) DEFAULT NULL,
+  `End_Latitude` varchar(12) DEFAULT NULL,
+  `End_Longitude` varchar(12) DEFAULT NULL,
+  `Boat_Speed_kt` decimal(3,1) DEFAULT NULL,
+  `Wind_Force_B` varchar(5) DEFAULT NULL,
+  `Wind_Speed_kt` varchar(5) DEFAULT NULL,
+  `Wind_Direction_deg` varchar(5) DEFAULT NULL,
+  `Sea_State_B` varchar(5) DEFAULT NULL,
+  `Temperature_C` decimal(6,3) DEFAULT NULL,
+  `pH` decimal(5,2) DEFAULT NULL,
+  `Oxygene_Dissous_mg_L` decimal(5,2) DEFAULT NULL,
+  `Salinite_SAL_PSU` decimal(5,2) DEFAULT NULL,
+  `Start_Flowmeter` varchar(10) DEFAULT NULL,
+  `End_Flowmeter` varchar(10) DEFAULT NULL,
+  `Volume_Filtered_m3` decimal(7,2) DEFAULT NULL,
+  `Volume_Filtered_Corrected_m3` decimal(7,2) DEFAULT NULL,
+  `km2` decimal(7,5) DEFAULT NULL,
+  `Commentaires` text,
+  `Nombre_Particules_gt_1_mm` varchar(10) DEFAULT NULL,
+  `Concentration_nb_km2` varchar(10) DEFAULT NULL,
+  `Concentration_nb_m3` decimal(5,2) DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Déchargement des données de la table `prelevement`
+--
+
+INSERT INTO `prelevement` (`Echantillon`, `Campagne`, `Mer`, `Manta`, `Date`, `Trafic`, `cote_la_plus_proche`, `courant`, `Start_Time_UTC`, `End_Time_UTC`, `Start_Latitude`, `Start_Longitude`, `Mid_Latitude`, `Mid_Longitude`, `End_Latitude`, `End_Longitude`, `Boat_Speed_kt`, `Wind_Force_B`, `Wind_Speed_kt`, `Wind_Direction_deg`, `Sea_State_B`, `Temperature_C`, `pH`, `Oxygene_Dissous_mg_L`, `Salinite_SAL_PSU`, `Start_Flowmeter`, `End_Flowmeter`, `Volume_Filtered_m3`, `Volume_Filtered_Corrected_m3`, `km2`, `Commentaires`, `Nombre_Particules_gt_1_mm`, `Concentration_nb_km2`, `Concentration_nb_m3`) VALUES
+('Echantillon', 'Campagne', 'Mer', 'Manta', 'Date', '0.00', '0.00', '0.00', 'Start Ti', 'End time', 'Start Latitu', 'Start Longit', 'Mid Latitude', 'Mid Longitud', 'End Latitude', 'End Longitud', '0.0', 'Wind ', 'Wind ', 'Wind ', 'Sea s', '0.000', '0.00', '0.00', '0.00', 'Start flow', 'End flowme', '0.00', '0.00', '0.00000', 'Commentaires', 'Nombre par', 'Concentrat', '0.00'),
+('EM23-01', '1', 'Tyrrhenienne', 'EM23-01', '08.07.2023', '2.00', '4.57', '0.07', '19h48', '20h08', '41°37.028\'N', '012°21.868\'E', '41°36.618\'N', '012°22.231\'E', '41°36.222\'N', '012°22.617\'E', '2.9', '1', '5', '150', '1', '28.055', '7.89', '2.06', '41.62', '79845', '86154', '0.00', '0.00', '0.00000', 'à côte d\'une réserve naturelle avec amphore romaine. Dernière minute manta hors de l\'eau un peu ', '133', '=AF3/AD3', '0.00'),
+('EM23-02', '1', 'Tyrrhenienne', 'EM23-02', '09.07.2023', '3.00', '1.56', '0.06', '17h30', '17h50', '40°55.531\'N', '12°53.248\'E', '40°55.187\'N', '012°53.706\'E', '40°54.820\'N', '012°54.174\'E', '2.9', '1', '3', '330', '1', '29.400', '8.07', '6.31', '42.20', '87631', '93527', '0.00', '0.00', '0.00000', 'prélèvement entre deux îles (ponza et palmarola)', '154', '=AF4/AD4', '0.00'),
+('EM23-03', '1', 'Tyrrhenienne', 'EM23-03', '10.07.2023', '4.00', '0.25', '0.07', '11h20', '11h40', '40°53.630\'N', '12°58.510\'E', '40°53.225\'N', '12°58.248\'E', '40°52.847\'N', '12°57.963\'E', '2.6', '0', '0', '/', '0', '28.660', '8.26', '4.89', '42.00', '94234', '100469', '0.00', '0.00', '0.00000', 'proximité village. Bout sous aile manta. Proche des côtes. Trafic ++.', '147', '=AF5/AD5', '0.00'),
+('EM23-04', '1', 'Tyrrhenienne', 'EM23-04', '10.07.2023', '2.00', '12.60', '0.04', '20h43', '21h03', '41°13.141\'N', '12°37.088\'E', '41°13.591\'N', '12°37.088\'E', '41°13.986\'N', '12°36.743\'E', '2.8', '2', '5', '310', '2', '27.870', '8.34', '5.58', '38.78', '100871', '106935', '0.00', '0.00', '0.00000', 'loin des côtes, au large entre ponza et rome', '64', '=AF6/AD6', '0.00'),
+('EM23-05', '1', 'Tyrrhenienne', 'EM23-05', '11.07.2023', '3.00', '4.29', '0.05', '18h01', '18h21', '41°43.078\'N', '12°09.245\'E', '41°42.855\'N', '12°08.689\'E', '41°42.642\'N', '12°08.119\'E', '2.8', '0', '0', '0', '0', '31.200', '8.21', '3.27', '0.00', '7486', '13328', '0.00', '0.00', '0.00000', 'estuaire rome', '17', '=AF7/AD7', '0.00'),
+('EM23-06', '1', 'Bouches de Bonifacio', 'EM23-06', '12.07.2023', '3.00', '2.54', '0.02', '18h08', '18h28', '41°14.581\'N', '009°05.573\'E', '41°14.368\'N', '009°04.991\'E', '41°14.150\'N', '009°04.390\'E', '2.9', '2', '/', '/', '2', '26.700', '8.34', '2.34', '42.23', '13853', '19428', '0.00', '0.00', '0.00000', 'vent très fort', '2', '=AF8/AD8', '0.00'),
+('EM23-07', '1', 'Sardinian sea', 'EM23-07', '13.07.2023', '2.00', '0.77', NULL, '12h48', '13h48', '40°57.530\'N', '008°14.332\'E', '40°57.886\'N', '008°14.636\'E', '40°58.272\'N', '008°14.959\'E', '2.6', '2', '7', '70', '0', '26.628', '8.41', '2.62', '38.15', '19529', '25692', '0.00', '0.00', '0.00000', 'Dans une baie, manta relevé environ 5sec après les 20min règlementaires', '97', '=AF9/AD9', '0.00'),
+('EM23-08', '1', 'Sardinian sea', 'EM23-08', '13.07.2023', NULL, '0.46', NULL, '20h11', '20h31', '40°33.766\'N', '008°10.191\'E', '40°34.121\'N', '008°10.502\'E', '40°34.466\'N', '008°10.823\'E', '2.8', '3', '13', '330', '1', '26.380', '8.40', '2.46', '41.87', '26028', '32323', '0.00', '0.00', '0.00000', NULL, '4', '=AF10/AD10', '0.00'),
+(NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0.00', '0.00', '0.00000', NULL, NULL, NULL, NULL),
+(NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0.00', '0.00', '0.00000', NULL, NULL, NULL, '0.00'),
+(NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0.00', '0.00', '0.00000', NULL, NULL, NULL, NULL),
+(NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0.00', '0.00', '0.00000', NULL, NULL, NULL, NULL),
+(NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0.00', '0.00', '0.00000', NULL, NULL, NULL, NULL),
+(NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0.00', '0.00', '0.00000', NULL, NULL, NULL, NULL),
+(NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0.00', '0.00', '0.00000', NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -116,14 +151,17 @@ INSERT INTO `prelevements` (`Sample`, `Sea`, `Date`, `Start_Time`, `Start_Latitu
 -- Structure de la table `tri`
 --
 
-CREATE TABLE `tri` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `tri`;
+CREATE TABLE IF NOT EXISTS `tri` (
+  `id` int NOT NULL AUTO_INCREMENT,
   `Sample` varchar(7) DEFAULT NULL,
   `Size` varchar(8) DEFAULT NULL,
   `Type` varchar(10) DEFAULT NULL,
   `Color` varchar(11) DEFAULT NULL,
-  `Number` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `Number` int DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_tri_prelevement` (`Sample`)
+) ENGINE=InnoDB AUTO_INCREMENT=1417 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Déchargement des données de la table `tri`
@@ -1373,7 +1411,67 @@ INSERT INTO `tri` (`id`, `Sample`, `Size`, `Type`, `Color`, `Number`) VALUES
 (1240, 'EM22-57', '1 - 2,5', 'Line', 'Transparent', 1),
 (1241, 'EM22-57', '1 - 2,5', 'ESP', 'Black', 1),
 (1242, 'EM22-57', '1 - 2,5', 'ESP', 'White', 16),
-(1243, 'EM22-57', '1 - 2,5', 'ESP', 'Yellow', 3);
+(1243, 'EM22-57', '1 - 2,5', 'ESP', 'Yellow', 3),
+(1357, 'EM23-02', '1 - 2.5', 'Fragment', 'Black', 1),
+(1358, 'EM23-02', '1 - 2.5', 'Fragment', 'Blue', 5),
+(1359, 'EM23-02', '1 - 2.5', 'Fragment', 'Green', 4),
+(1360, 'EM23-02', '1 - 2.5', 'Fragment', 'White', 35),
+(1361, 'EM23-02', '1 - 2.5', 'Fragment', 'Orange', 2),
+(1362, 'EM23-02', '1 - 2.5', 'Fragment', 'Transparent', 30),
+(1363, 'EM23-02', '1 - 2.5', 'Film', 'Blue', 1),
+(1364, 'EM23-02', '1 - 2.5', 'Film', 'White', 4),
+(1365, 'EM23-02', '1 - 2.5', 'Film', 'Transparent', 11),
+(1366, 'EM23-02', '1 - 2.5', 'Line', 'Blue', 1),
+(1367, 'EM23-02', '1 - 2.5', 'Line', 'White', 1),
+(1368, 'EM23-02', '1 - 2.5', 'Line', 'Transparent', 1),
+(1369, 'EM23-02', '1 - 2.5', 'ESP', 'White', 5),
+(1370, 'EM23-02', '1 - 2.5', 'Pellet', 'White', 2),
+(1371, 'EM23-02', '2.5 - 5', 'Fragment', 'Black', 2),
+(1372, 'EM23-02', '2.5 - 5', 'Fragment', 'White', 2),
+(1373, 'EM23-02', '2.5 - 5', 'Fragment', 'Transparent', 3),
+(1374, 'EM23-02', '2.5 - 5', 'Film', 'White', 3),
+(1375, 'EM23-02', '2.5 - 5', 'Film', 'Transparent', 5),
+(1376, 'EM23-02', '2.5 - 5', 'Line', 'Blue', 4),
+(1377, 'EM23-02', '2.5 - 5', 'Line', 'Green', 2),
+(1378, 'EM23-02', '2.5 - 5', 'ESP', 'White', 1),
+(1379, 'EM23-02', '2.5 - 5', 'Pellet', 'Yellow', 1),
+(1380, 'EM23-02', '2.5 - 5', 'Pellet', 'Transparent', 1),
+(1381, 'EM23-02', '> 5', 'Fragment', 'Black', 4),
+(1382, 'EM23-02', '> 5', 'Fragment', 'White', 2),
+(1383, 'EM23-02', '> 5', 'Fragment', 'Transparent', 2),
+(1384, 'EM23-02', '> 5', 'Film', 'White', 8),
+(1385, 'EM23-02', '> 5', 'Film', 'Transparent', 1),
+(1386, 'EM23-02', '> 5', 'Line', 'Black', 4),
+(1387, 'EM23-02', '> 5', 'Line', 'Green', 2),
+(1388, 'EM23-02', '> 5', 'Line', 'White', 1),
+(1389, 'EM23-02', '> 5', 'Line', 'Orange', 2),
+(1390, 'EM23-02', '> 5', 'Pellet', 'White', 1),
+(1391, 'EM23-01', ' 1 - 2.5', 'Fragment', 'Black', 6),
+(1392, 'EM23-01', ' 1 - 2.5', 'Fragment', 'Blue', 3),
+(1393, 'EM23-01', ' 1 - 2.5', 'Fragment', 'Green', 2),
+(1394, 'EM23-01', ' 1 - 2.5', 'Fragment', 'Brown', 2),
+(1395, 'EM23-01', ' 1 - 2.5', 'Fragment', 'White', 29),
+(1396, 'EM23-01', ' 1 - 2.5', 'Fragment', 'Yellow', 1),
+(1397, 'EM23-01', ' 1 - 2.5', 'Fragment', 'Orange', 2),
+(1398, 'EM23-01', ' 1 - 2.5', 'Fragment', 'Transparent', 22),
+(1399, 'EM23-01', ' 1 - 2.5', 'Film', 'Black', 1),
+(1400, 'EM23-01', ' 1 - 2.5', 'Film', 'Transparent', 13),
+(1401, 'EM23-01', ' 1 - 2.5', 'Line', 'Blue', 2),
+(1402, 'EM23-01', ' 1 - 2.5', 'Line', 'Green', 7),
+(1403, 'EM23-01', ' 1 - 2.5', 'Line', 'Orange', 1),
+(1404, 'EM23-01', ' 1 - 2.5', 'Line', 'Transparent', 1),
+(1405, 'EM23-01', ' 1 - 2.5', 'ESP', 'White', 1),
+(1406, 'EM23-01', '2.5 - 5', 'Fragment', 'Blue', 1),
+(1407, 'EM23-01', '2.5 - 5', 'Fragment', 'White', 8),
+(1408, 'EM23-01', '2.5 - 5', 'Fragment', 'Transparent', 7),
+(1409, 'EM23-01', '2.5 - 5', 'Film', 'White', 3),
+(1410, 'EM23-01', '2.5 - 5', 'Film', 'Transparent', 10),
+(1411, 'EM23-01', '2.5 - 5', 'Line', 'Blue', 1),
+(1412, 'EM23-01', '2.5 - 5', 'Line', 'Green', 1),
+(1413, 'EM23-01', '> 5', 'Fragment', 'White', 1),
+(1414, 'EM23-01', '> 5', 'Fragment', 'Orange', 1),
+(1415, 'EM23-01', '> 5', 'Film', 'Green', 2),
+(1416, 'EM23-01', '> 5', 'Film', 'Transparent', 5);
 
 -- --------------------------------------------------------
 
@@ -1381,11 +1479,13 @@ INSERT INTO `tri` (`id`, `Sample`, `Size`, `Type`, `Color`, `Number`) VALUES
 -- Structure de la table `user`
 --
 
-CREATE TABLE `user` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE IF NOT EXISTS `user` (
+  `id` int NOT NULL AUTO_INCREMENT,
   `email` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `password` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Déchargement des données de la table `user`
@@ -1393,46 +1493,8 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`id`, `email`, `password`) VALUES
 (2, 'user@user.fr', '$2y$10$.I0fVtvzUd6LpfzzFFBMBO52HmJIbUtBcZPZDcnNzyJM.wn/4dHTq'),
-(3, 'jo@gmail.com', 'jo');
-
---
--- Index pour les tables déchargées
---
-
---
--- Index pour la table `prelevements`
---
-ALTER TABLE `prelevements`
-  ADD PRIMARY KEY (`Sample`);
-
---
--- Index pour la table `tri`
---
-ALTER TABLE `tri`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_tri_prelevement` (`Sample`);
-
---
--- Index pour la table `user`
---
-ALTER TABLE `user`
-  ADD PRIMARY KEY (`id`);
-
---
--- AUTO_INCREMENT pour les tables déchargées
---
-
---
--- AUTO_INCREMENT pour la table `tri`
---
-ALTER TABLE `tri`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1244;
-
---
--- AUTO_INCREMENT pour la table `user`
---
-ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+(3, 'jo@gmail.com', 'jo'),
+(5, 'ra@gmail.com', '$2y$10$Tr75fupZMf0XNxo6JaOQf.ngzmj6ChQsy.e9bYqMDOAHvOBAOslBe');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
