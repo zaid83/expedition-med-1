@@ -1,5 +1,8 @@
 <h2>Prélèvements</h2>
-<table class="table">
+<select name="byYear" id="select-year" class="form-control">
+    <option value="all">Toutes les années</option>
+</select>
+<table class="table samples-table" id="samples-table">
     <thead>
         <tr>
             <th scope="col">Sample</th>
@@ -25,3 +28,4 @@
         <?php endforeach; ?>
     </tbody>
 </table>
+<script src="public/javascript/samplesByYear.js"></script>

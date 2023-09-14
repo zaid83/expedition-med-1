@@ -2,16 +2,40 @@
 
 <ul class="list-group w-50 mx-auto">
     <li class="list-group-item d-flex justify-content-between align-items-center">
+        Campagne
+        <span class="badge bg-primary rounded-pill"><?= $result["Campagne"] ?></span>
+    </li>
+    <li class="list-group-item d-flex justify-content-between align-items-center">
         Mer
         <span class="badge bg-primary rounded-pill"><?= $result["Sea"] ?></span>
+    </li>
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+        Manta
+        <span class="badge bg-primary rounded-pill"><?= $result["Manta"] ?></span>
     </li>
     <li class="list-group-item d-flex justify-content-between align-items-center">
         Date
         <span class="badge bg-primary rounded-pill"><?= $result["Date"] ?></span>
     </li>
     <li class="list-group-item d-flex justify-content-between align-items-center">
+        Trafic
+        <span class="badge bg-primary rounded-pill"><?= $result["Trafic"] ?></span>
+    </li>
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+        Cote la plus proche
+        <span class="badge bg-primary rounded-pill"><?= $result["cote_la_plus_proche"] ?></span>
+    </li>
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+        Courant
+        <span class="badge bg-primary rounded-pill"><?= $result["courant"] ?></span>
+    </li>
+    <li class="list-group-item d-flex justify-content-between align-items-center">
         Heure de Départ
-        <span class="badge bg-primary rounded-pill"><?= $result["Start_Time"] ?></span>
+        <span class="badge bg-primary rounded-pill"><?= $result["Start_Time_UTC"] ?></span>
+    </li>
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+        Heure d'Arrivée
+        <span class="badge bg-primary rounded-pill"><?= $result["End_Time_UTC"] ?></span>
     </li>
     <li class="list-group-item d-flex justify-content-between align-items-center">
         Latitude de Départ
@@ -38,52 +62,72 @@
         <span class="badge bg-primary rounded-pill"><?= $result["End_Longitude"] ?></span>
     </li>
     <li class="list-group-item d-flex justify-content-between align-items-center">
+        Vitesse du bâteau
+        <span class="badge bg-primary rounded-pill"><?= $result["Boat_Speed_kt"] ?></span>
+    </li>
+    <li class="list-group-item d-flex justify-content-between align-items-center">
         Force du vent
-        <span class="badge bg-primary rounded-pill"><?= $result["Wind_force"] ?></span>
+        <span class="badge bg-primary rounded-pill"><?= $result["Wind_Force_B"] ?></span>
     </li>
     <li class="list-group-item d-flex justify-content-between align-items-center">
         Vitesse du vent
-        <span class="badge bg-primary rounded-pill"><?= $result["Wind_speed"] ?></span>
+        <span class="badge bg-primary rounded-pill"><?= $result["Wind_Speed_kt"] ?></span>
     </li>
     <li class="list-group-item d-flex justify-content-between align-items-center">
         Direction du vent
-        <span class="badge bg-primary rounded-pill"><?= $result["Wind_direction"] ?></span>
+        <span class="badge bg-primary rounded-pill"><?= $result["Wind_Direction_deg"] ?></span>
     </li>
     <li class="list-group-item d-flex justify-content-between align-items-center">
         Etat de la mer
-        <span class="badge bg-primary rounded-pill"><?= $result["Sea_state"] ?></span>
+        <span class="badge bg-primary rounded-pill"><?= $result["Sea_State_B"] ?></span>
     </li>
     <li class="list-group-item d-flex justify-content-between align-items-center">
         Température de l'eau
-        <span class="badge bg-primary rounded-pill"><?= $result["Water_temperature"] ?></span>
+        <span class="badge bg-primary rounded-pill"><?= $result["Temperature_C"] ?></span>
     </li>
     <li class="list-group-item d-flex justify-content-between align-items-center">
-        Vitesse du bâteau
-        <span class="badge bg-primary rounded-pill"><?= $result["Boat_speed"] ?></span>
+        PH
+        <span class="badge bg-primary rounded-pill"><?= $result["pH"] ?></span>
     </li>
     <li class="list-group-item d-flex justify-content-between align-items-center">
-        Hauteur d'eau au départ
-        <span class="badge bg-primary rounded-pill"><?= $result["Start_flowmeter"] ?></span>
+        Oxygene Dissous
+        <span class="badge bg-primary rounded-pill"><?= $result["Oxygene_Dissous_mg_L"] ?></span>
     </li>
     <li class="list-group-item d-flex justify-content-between align-items-center">
-        Hauteur d'eau à la fin
-        <span class="badge bg-primary rounded-pill"><?= $result["End_flowmeter"] ?></span>
+        Salinité
+        <span class="badge bg-primary rounded-pill"><?= $result["Salinite_SAL_PSU"] ?></span>
+    </li>
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+        Début débimètre
+        <span class="badge bg-primary rounded-pill"><?= $result["Start_Flowmeter"] ?></span>
+    </li>
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+        Fin débimètre
+        <span class="badge bg-primary rounded-pill"><?= $result["End_Flowmeter"] ?></span>
     </li>
     <li class="list-group-item d-flex justify-content-between align-items-center">
         Volume filtrée
-        <span class="badge bg-primary rounded-pill"><?= $result["Filtered_volume"] ?></span>
+        <span class="badge bg-primary rounded-pill"><?= $result["Volume_Filtered_m3"] ?></span>
     </li>
     <li class="list-group-item d-flex justify-content-between align-items-center">
-        Distance filtrée
-        <span class="badge bg-primary rounded-pill"><?= $result["Filtered_distance"] ?></span>
+        Volume filtrée corrigée
+        <span class="badge bg-primary rounded-pill"><?= $result["Volume_Filtered_Corrected_m3"] ?></span>
     </li>
     <li class="list-group-item d-flex justify-content-between align-items-center">
-        Surface filtrée (m)
-        <span class="badge bg-primary rounded-pill"><?= $result["Filtered_surface"] ?></span>
+        Km2
+        <span class="badge bg-primary rounded-pill"><?= $result["km2"] ?></span>
     </li>
     <li class="list-group-item d-flex justify-content-between align-items-center">
-        Surface filtrée (km)
-        <span class="badge bg-primary rounded-pill"><?= $result["Filtered_surface_km"] ?></span>
+        Nombre de particules
+        <span class="badge bg-primary rounded-pill"><?= $result["Nombre_Particules_gt_1_mm"] ?></span>
+    </li>
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+        Concentration surfacique
+        <span class="badge bg-primary rounded-pill"><?= $result["Concentration_nb_km2"] ?></span>
+    </li>
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+        Concentration volumique
+        <span class="badge bg-primary rounded-pill"><?= $result["Concentration_nb_m3"] ?></span>
     </li>
     <li class="list-group-item d-flex justify-content-between align-items-center">
         Commentaires

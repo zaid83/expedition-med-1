@@ -1,93 +1,109 @@
 <form class="m-5 d-flex flex-wrap flex-row align-items-center" method="POST" action="Data/PushPrelevement">
-
   <div class="mb-3 w-25 w-25">
     <label for="Sample" class="form-label">Echantillon</label>
     <input type="text" class="form-control w-75" id="Sample" aria-describedby="Input Sample" name="sample">
-  </div>
-  <div class="mb-3 w-25 w-25">
+    <br>
+    <label for="Campaign" class="form-label">Campagne</label>
+    <input type="text" class="form-control w-75" id="Campaign" aria-describedby="Input Campaign" name="campaign">
+    <br>
     <label for="Sea" class="form-label">Mer</label>
-    <input type="text" class="form-control w-75" id="Sea" name="sea">
-  </div>
-  <div class="mb-3 w-25 w-25">
+    <select name="sea" id="select-seas" class="select-seas form-control w-75">
+      <?php foreach ($seas as $sea) : ?>
+        <option value="<?= $sea['name'] ?>"><?= $sea['name'] ?></option>
+      <?php endforeach; ?>
+    </select>
+    <br>
     <label for="Date" class="form-label">Date</label>
-    <input type="text" class="form-control w-75" id="Date" name="date">
-  </div>
-  <div class="mb-3 w-25 w-25">
+    <input type="date" name="date" id="Date" class="form-control w-75">
+    <br>
     <label for="StartTime" class="form-label">Date de début</label>
-    <input type="text" class="form-control w-75" id="StartTime" name="startTime">
+    <input type="time" class="form-control w-75" id="StartTime" name="startTime">
+    <br>
+    <label for="EndTime" class="form-label">Date de fin</label>
+    <input type="time" class="form-control w-75" id="EndTime" name="endTime">
+
   </div>
+
+  <div class="mb-3 w-25 w-25">
+    <label for="BoatSpeed" class="form-label">Vitesse du Bateau</label>
+    <input type="number" class="form-control w-75" id="BoatSpeed" name="boatSpeed" step="0.1" min="0">
+    <br>
+    <label for="Trafic" class="form-label">Trafic</label>
+    <input type="number" class="form-control w-75" id="Trafic" aria-describedby="Input Trafic" name="trafic">
+    <br>
+    <label for="NearCost" class="form-label">Côte proche</label>
+    <input type="number" class="form-control w-75" id="NearCost" aria-describedby="Input NearCost" name="nearCost" step="0.20" min="0">
+    <br>
+    <label for="Courant" class="form-label">Courant</label>
+    <input type="number" class="form-control w-75" id="Courant" aria-describedby="Input Courant" name="courant" step="0.01" min="0">
+    <br>
+    <label for="WindForce" class="form-label">Force du Vent</label>
+    <input type="number" class="form-control w-75" id="WindForce" name="windForce">
+    <br>
+    <label for="WindSpeed" class="form-label">Vitesse du Vent</label>
+    <input type="number" class="form-control w-75" id="WindSpeed" name="windSpeed">
+    <br>
+    <label for="WindDirection" class="form-label">Direction du Vent</label>
+    <input type="number" class="form-control w-75" id="WindDirection" name="windDirection">
+  </div>
+
+
+
+
+
+
   <div class="mb-3 w-25 w-25">
     <label for="StartLatitude" class="form-label">Début latitude</label>
     <input type="text" class="form-control w-75" id="StartLatitude" name="startLatitude">
-  </div>
-  <div class="mb-3 w-25 w-25">
+    <br>
     <label for="StartLongitude" class="form-label">Début longitude</label>
     <input type="text" class="form-control w-75" id="StartLongitude" name="startLongitude">
-  </div>
-  <div class="mb-3 w-25 w-25">
+    <br>
     <label for="MidLatitude" class="form-label">Milieu Latitude</label>
     <input type="text" class="form-control w-75" id="MidLatitude" name="midLatitude">
-  </div>
-  <div class="mb-3 w-25 w-25">
+    <br>
     <label for="MidLongitude" class="form-label">Millieu Longitude</label>
     <input type="text" class="form-control w-75" id="MidLongitude" name="midLongitude">
-  </div>
-  <div class="mb-3 w-25 w-25">
+    <br>
     <label for="EndLatitude" class="form-label">Fin Latitude</label>
     <input type="text" class="form-control w-75" id="EndLatitude" name="endLatitude">
-  </div>
-  <div class="mb-3 w-25 w-25">
+    <br>
     <label for="EndLongitude" class="form-label">Fin Longitude</label>
     <input type="text" class="form-control w-75" id="EndLongitude" name="endLongitude">
   </div>
+
+
   <div class="mb-3 w-25 w-25">
-    <label for="WindForce" class="form-label">Force du Vent</label>
-    <input type="text" class="form-control w-75" id="WindForce" name="windForce">
-  </div>
-  <div class="mb-3 w-25 w-25">
-    <label for="WindSpeed" class="form-label">Vitesse du Vent</label>
-    <input type="text" class="form-control w-75" id="WindSpeed" name="windSpeed">
-  </div>
-  <div class="mb-3 w-25 w-25">
-    <label for="WindDirection" class="form-label">Direction du Vent</label>
-    <input type="text" class="form-control w-75" id="WindDirection" name="windDirection">
-  </div>
-  <div class="mb-3 w-25 w-25">
+
+    <label for="PH" class="form-label">PH</label>
+    <input type="number" class="form-control w-75" id="PH" name="ph" step="0.10" min="0">
+    <br>
+    <label for="Oxygen" class="form-label">Oxygene</label>
+    <input type="number" class="form-control w-75" id="Oxygen" name="oxygen" step="0.20" min="0">
+    <br>
+    <label for="Salinite" class="form-label">Salinite</label>
+    <input type="number" class="form-control w-75" id="Salinite" name="salinite" step="0.20" min="0">
+    <br>
     <label for="SeaState" class="form-label">Etat de la Mer</label>
-    <input type="text" class="form-control w-75" id="SeaState" name="seaState">
-  </div>
-  <div class="mb-3 w-25 w-25">
+    <input type="number" class="form-control w-75" id="SeaState" name="seaState">
+
+    <br>
     <label for="WaterTemperature" class="form-label">Température de l'Eau</label>
     <input type="text" class="form-control w-75" id="WaterTemperature" name="waterTemperature">
-  </div>
-  <div class="mb-3 w-25 w-25">
-    <label for="BoatSpeed" class="form-label">Vitesse du Bateau</label>
-    <input type="text" class="form-control w-75" id="BoatSpeed" name="boatSpeed">
-  </div>
-  <div class="mb-3 w-25 w-25">
-    <label for="StartFlowMeter" class="form-label">Début hauteur d'eau</label>
+
+    <br>
+
+
+    <br>
+    <label for="StartFlowMeter" class="form-label">Début débitmètre</label>
     <input type="text" class="form-control w-75" id="StartFlowMeter" name="startFlowMeter">
-  </div>
-  <div class="mb-3 w-25 w-25">
-    <label for="EndFlowMeter" class="form-label">Fin hauteur d'eau</label>
+
+    <br>
+    <label for="EndFlowMeter" class="form-label">Fin débimètre</label>
     <input type="text" class="form-control w-75" id="EndFlowMeter" name="endFlowMeter">
+
   </div>
-  <div class="mb-3 w-25 w-25">
-    <label for="FilteredVolume" class="form-label">Volume filtré</label>
-    <input type="text" class="form-control w-75" id="FilteredVolume" name="filteredVolume">
-  </div>
-  <div class="mb-3 w-25 w-25">
-    <label for="FilteredDistance" class="form-label">Distance filtrée</label>
-    <input type="text" class="form-control w-75" id="FilteredDistance" name="filteredDistance">
-  </div>
-  <div class="mb-3 w-25 w-25">
-    <label for="FilteredSurface" class="form-label">Surface filtrée (m)</label>
-    <input type="text" class="form-control w-75" id="FilteredSurface" name="filteredSurface">
-  </div>
-  <div class="mb-3 w-25 w-25">
-    <label for="FilteredSurfaceKm" class="form-label">Surface filtrée (KM)</label>
-    <input type="text" class="form-control w-75" id="FilteredSurfaceKm" name="filteredSurfaceKm">
-  </div>
+
   <div class="mb-3 w-25 w-25 w-100">
     <label for="Commentaires" class="form-label">Commentaires</label>
     <textarea id="Commentaires" class="form-control" id="exampleFormControlTextarea1" rows="3" name="commentaires"></textarea>
@@ -96,22 +112,3 @@
 
   <div class="w-100 text-center p-5"><button type="submit" class="btn btn-primary ">Soumettre</button></div>
 </form>
-
-
-<form class="form-horizontal" action="Data/importSampling" method="post" name="upload_excel" enctype="multipart/form-data">
-    <fieldset>
-        <legend>Import de fichier</legend>
-            <div class="form-group">         
-                <div class="col-md-4">
-                    <input type="file" name="file" id="file" class="input-large">
-                </div>
-            </div>
-                <div class="form-group">
-                    <label class="col-md-4 control-label" for="singlebutton">Validation</label>
-                        <div class="col-md-4">
-                            <button type="submit" id="submit" name="Import" class="btn btn-primary button-loading" data-loading-text="Loading...">Ajouter</button>
-                        </div>
-                </div>
-    </fieldset>
-</form>
-

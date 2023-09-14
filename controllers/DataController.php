@@ -20,6 +20,7 @@ class DataController
   public function sampling()
   {
     $this->user->checkConnexion($_SESSION["id"]);
+    $seas = $this->data->findAllSeas();
     $pageTitle = "Sampling";
     $page = "views/AddSampling.phtml";
     require_once "views/Layout.phtml";
@@ -73,40 +74,40 @@ class DataController
     require_once "views/Layout.phtml";
   }
 
-  public function import() {
+  public function import()
+  {
     if (isset($_POST["Import"])) {
-         $csvImporter = new \models\DataRepository();
-         $filename = $_FILES["file"]["tmp_name"];
-         $data = $csvImporter->importCSV($filename); // les données du fichier Excel
- 
-         foreach ($data as $row) {
-             
+      $csvImporter = new \models\DataRepository();
+      $filename = $_FILES["file"]["tmp_name"];
+      $data = $csvImporter->importCSV($filename); // les données du fichier Excel
 
-             $csvImporter->insertData($row); // Appel de la méthode insertData
-         }
- 
-         $page = "views/AddTri.phtml";
-         require_once "views/Layout.phtml";
+      foreach ($data as $row) {
+
+
+        $csvImporter->insertData($row); // Appel de la méthode insertData
+      }
+
+      $page = "views/AdminIndex.phtml";
+      require_once "views/Layout.phtml";
     }
- }
-
- 
-    public function importSampling() {
-  if (isset($_POST["Import"])) {
-       $csvImporter = new \models\DataRepository();
-       $filename = $_FILES["file"]["tmp_name"];
-       $data = $csvImporter->importCSVSampling($filename); // les données du fichier Excel
-
-       foreach ($data as $row) {
-           
-
-           $csvImporter->insertDataPrelevement($row); // Appel de la méthode insertData
-       }
-
-       $page = "views/AddTri.phtml";
-       require_once "views/Layout.phtml";
   }
-}
 
- 
+
+  public function importSampling()
+  {
+    if (isset($_POST["Import"])) {
+      $csvImporter = new \models\DataRepository();
+      $filename = $_FILES["file"]["tmp_name"];
+      $data = $csvImporter->importCSVSampling($filename); // les données du fichier Excel
+
+      foreach ($data as $row) {
+
+
+        $csvImporter->insertDataPrelevement($row); // Appel de la méthode insertData
+      }
+      return header('Location: /expedition-med/Users/index');
+      $page = "views/AdminIndex.phtml";
+      require_once "views/Layout.phtml";
+    }
+  }
 }

@@ -31,6 +31,7 @@ class UsersRepository
     {
         if (password_verify($password, $result["password"])) {
             $_SESSION["id"] = $result["id"];
+            var_dump($_SESSION);
             return true;
         } else {
             return false;
@@ -43,10 +44,27 @@ class UsersRepository
         }
     }
 
-    public function RegisterClient($email, $mdp){
+    /**
+     * Sign up User
+     * @return void
+     */
 
-        $insert = $this->pdo->prepare("INSERT INTO user(email, password) VALUES (?, ?)");
-        $insert->execute([$email, $mdp]);
+    public function addUser(string $email, string $password): void
+    {
 
+        $insert = $this->pdo->prepare("
+          INSERT INTO user(email, password)
+          VALUES(:email, :password)");
+        $insert->bindParam(':email', $email);
+        $insert->bindParam(':password', $password);
+        $insert->execute();
+    }
+
+    public function check($column, $params)
+    {
+        $compare = $this->pdo->prepare('SELECT ' . $column . ' FROM user WHERE ' . $column . ' = ?');
+        $compare->execute([$params]);
+        $res = $compare->fetchAll();
+        return $res;
     }
 }

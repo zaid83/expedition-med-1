@@ -26,6 +26,23 @@ class AdminController
         require_once "views/Layout.phtml";
     }
 
+    public function importExcel()
+    {
+        $this->user->checkConnexion($_SESSION["id"]);
+        $pageTitle = "Import Csv";
+        $page = "views/AdminImport.phtml";
+        require_once "views/Layout.phtml";
+    }
+
+
+    public function allYears()
+    {
+        $this->user->checkConnexion($_SESSION["id"]);
+        $prelevements = $this->data->findAll();
+        header('Content-Type: application/json');
+        echo json_encode($prelevements);
+    }
+
     public function viewBySample($id)
     {
         $this->user->checkConnexion($_SESSION["id"]);
@@ -33,6 +50,8 @@ class AdminController
         $page = "views/ViewBySample.phtml";
         require_once "views/Layout.phtml";
     }
+
+
 
     public function editBySample($id)
     {
@@ -82,4 +101,23 @@ class AdminController
         $this->data->deleteByTri($id);
         return header('Location: /expedition-med/admin/triBySample/' . $tri["Sample"]);
     }
+    public function samplesByYear($year)
+    {
+        $this->user->checkConnexion($_SESSION["id"]);
+        $samples = $this->data->findSamplesByYear($year); // Appeler la méthode du repository pour récupérer les prélevements par année
+        // Retourner les prélevements sous forme JSON
+        header('Content-Type: application/json');
+        echo json_encode($samples);
+    }
+
+    public function uniqueYears()
+    {
+        $this->user->checkConnexion($_SESSION["id"]);
+        $years = $this->data->findUniqueYears(); // Appeler la méthode du repository pour récupérer les années uniques
+        // Retourner les années sous forme JSON
+        header('Content-Type: application/json');
+        echo json_encode($years);
+    }
+
+    // ... (autres méthodes)
 }

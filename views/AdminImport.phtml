@@ -1,0 +1,35 @@
+<!-- Formulaire d'import des "tris" -->
+<form class="form-horizontal" action="Data/import" method="post" name="upload_excel" enctype="multipart/form-data">
+    <fieldset>
+        <legend>Import des tris</legend>
+        <div class="form-group">
+            <div class="col-md-4">
+                <input type="file" name="file" id="file" class="input-large">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="singlebutton">Validation</label>
+            <div class="col-md-4">
+                <button type="submit" id="submit" name="Import" class="btn btn-primary button-loading" data-loading-text="Chargement...">Ajouter</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+
+<!-- Formulaire d'import des "prélèvements" -->
+<form class="form-horizontal" action="Data/importSampling" method="post" name="upload_excel" enctype="multipart/form-data">
+    <fieldset>
+        <legend>Import des prélèvements</legend>
+        <div class="form-group">
+            <div class="col-md-4">
+                <input type="file" name="file" id="file" class="input-large">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="singlebutton">Validation</label>
+            <div class="col-md-4">
+                <button type="submit" id="submit" name="Import" class="btn btn-primary button-loading" data-loading-text="Chargement...">Ajouter</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
